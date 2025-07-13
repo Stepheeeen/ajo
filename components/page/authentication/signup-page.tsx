@@ -39,7 +39,7 @@ export default function Component() {
       {/* Right Side - Signup Form */}
       <div className="flex-1 bg-white flex items-center justify-center p-12">
         <div className="w-full max-w-md space-y-6">
-          <div className="text-center mb-8">
+          <div className="text-start mb-8">
             <h2 className="text-3xl font-bold text-gray-900 mb-2">Create Your ÀJÓ Account</h2>
           </div>
 
