@@ -3,8 +3,8 @@ import { Bell } from "lucide-react"
 // TopBar Component
 export const Navbar = ({ userName = "Tofunmi" }) => {
     return (
-        <div className='flex h-[85px] justify-between px-8 pt-5 border w-full'>
-            <h1 className='text-[20px] font-[600] mt-4'>Welcome back, {userName}</h1>
+        <div className='flex md:h-[85px] justify-between items-center px-6 md:px-8 pt-5 md:border w-full'>
+            <h1 className='text-[22px] font-[600] mt-4'><span className="font-medium md:font-[600]">Welcome back,</span> {userName}</h1>
             <div>
                 <ul className='flex-center gap-5'>
                     <li className='flex-center rounded-full overflow-hidden'>

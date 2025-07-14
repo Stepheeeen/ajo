@@ -7,7 +7,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     return (
         <SidebarProvider>
             <AppSidebar />
-            <main className="" style={{ width: 'calc(100% - 5rem)' }}>
+            <main className="h-[100vh] overflow-scroll w-full md:[width:calc(100%-5rem)]">
                 <Navbar userName="Tofunmi" />
                 <div className="bg-[#FBFBFB]">
                     {children}

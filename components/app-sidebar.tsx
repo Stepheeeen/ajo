@@ -29,7 +29,7 @@ const Sidebar = () => {
 
   return (
     <TooltipProvider>
-      <aside className="w-20 h-[100vh] flex flex-col justify-between items-center p-5 border-r bg-white">
+      <aside className="w-20 h-[100vh] hidden md:flex flex-col justify-between items-center p-5 border-r bg-white">
         {/* Logo */}
         <div className="flex flex-col items-center gap-6">
           <h1 className="text-2xl font-black text-[#6a0dad]">AJO</h1>

@@ -36,14 +36,14 @@ const CircleCard = ({
     return (
         <div className="bg-white rounded-xl p-4 shadow-sm">
             {isPrivate ? (
-                <Card className="w-[390px] border-none shadow-none">
-                    <CardContent className="p-6">
+                <Card className="w-[330px] md:w-[390px] border-none shadow-none">
+                    <CardContent className="p-2 md:p-6">
                         {/* Header with badges */}
                         <div className="flex gap-2 mb-4">
-                            <div className="bg-[#ffffff] text-[#000000] border border-[#e5e7eb] px-3 py-1 rounded-full text-sm font-medium cursor-default">
+                            <div className="bg-[#FEF0FF] text-[#000000] border px-3 py-1 rounded-full text-sm font-medium cursor-default">
                                 Monthly
                             </div>
-                            <div className="bg-[#fcdcfb] text-[#390053] hover:bg-[#fcdcfb] px-3 py-1 rounded-full text-sm font-medium cursor-default">Active</div>
+                            <div className="bg-[#FCDCFB] text-[#390053] hover:bg-[#fcdcfb] px-3 py-1 rounded-full text-sm font-medium cursor-default">Active</div>
                         </div>
 
                         {/* Main content */}
@@ -80,7 +80,7 @@ const CircleCard = ({
                 </Card>
 
             ) : (
-                <div className="w-[390px]">
+                <div className="w-[330px] md:w-[390px]">
                     <div className="flex justify-between items-center mb-6">
                         <h2 className="text-[#390053] font-semibold text-sm">JOIN CIRCLE</h2>
                         <span className="text-[#b6b6b6] text-sm">Verified User</span>
@@ -119,13 +119,13 @@ const CircleCard = ({
 // ----------------- Hero Section -----------------
 
 const HeroSection = () => (
-    <div className="flex flex-col items-center py-6">
+    <div className="flex flex-col items-center py-6 px-2 md:px-0">
         <div className="w-full max-w-2xl flex justify-between items-center px-6">
             <div>
-                <h1 className="text-4xl font-semibold mb-1">Àjọ begins with trust.</h1>
-                <p className="text-4xl font-semibold">Start saving with yours</p>
+                <h1 className="text-3xl md:text-4xl font-medium md:font-semibold mb-1">Àjọ begins with trust.</h1>
+                <p className="text-3xl md:text-4xl font-normal md:font-semibold">Start saving with yours</p>
             </div>
-            <button className="flex flex-col items-center">
+            <button className="hidden md:flex flex-col items-center">
                 <Image src="/plus.png" width={56} height={56} alt="plus" />
                 <p className="text-sm font-semibold text-[#424242] mt-2">CREATE NEW AJO</p>
             </button>
@@ -176,7 +176,7 @@ const Dashboard = () => {
         <main className="bg-white">
             <HeroSection />
 
-            <section className="bg-[#F6F1FB] py-6 px-10">
+            <section className="bg-[#F6F1FB] py-6 px-4 md:px-10">
                 <h2 className="text-lg font-semibold">Recommended Circles</h2>
                 <p className="text-sm text-muted-foreground mb-4">Circles tailored to your preferences</p>
                 <div className="flex gap-4 overflow-x-auto">
@@ -186,7 +186,7 @@ const Dashboard = () => {
                 </div>
             </section>
 
-            <section className="py-6 px-10 bg-[#FAF9FC]">
+            <section className="py-6 px-4 md:px-10 bg-[#FAF9FC]">
                 <h2 className="text-lg font-semibold mb-2">My Private Circles</h2>
                 <div className="flex gap-4 overflow-x-auto">
                     {privateCircles.map((c, idx) => (
