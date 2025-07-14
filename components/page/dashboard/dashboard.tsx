@@ -1,64 +1,201 @@
-import { Search, UsersRound, House, ChartPie, Settings, MessageCircleQuestion, LogOut, Bell, CirclePlus} from 'lucide-react'
-import React from 'react'
+"use client";
+import { Search, ArrowRight, Badge } from "lucide-react";
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Card, CardContent } from "@/components/ui/card";
 
-const iconStyle = "flex-center w-[48px] h-[48px] rounded-lg text-[#390053] hover:bg-[#390053] hover:text-stone-50 cursor-pointer";
-const dashboard = () => {
-  return (
-    <div className='flex h-screen'>
-        <header className='w-[80px] flex h-screen flex-col justify-between items-center p-5 border'>
-            <div className='flex-center flex-col'>
-                <h1 className='text-[24px] font-[900] text-[#6a0dad] my-4'>AJO</h1>
-                <nav>
-                    <ul className='flex flex-col gap-1'>
-                    <li className={`${iconStyle} bg-[#f0e8f6] text-[#9b5cc0]`}><Search/></li>
-                    <li className={iconStyle}><UsersRound/></li>
-                    <li className={iconStyle}><House/></li>
-                    <li className={iconStyle}><ChartPie/></li>
-                    <li className={iconStyle}><Settings/></li>
-                </ul>
-                </nav>
-            </div>
-            <div>
-                <ul className='flex flex-col gap-1'>
-                    <li className={iconStyle}><MessageCircleQuestion/></li>
-                    <li className={iconStyle}><LogOut/></li>
-                    <li className='bg-[#ccc] h-[1px] mb-5'></li>
-                </ul>
-            </div>
-        </header>
-        <section  className='w-[100%]'>
-            <div className='flex w-[100%] h-[85px] justify-between px-10 pt-5 border'>
-            <h1 className='text-[20px] font-[600] mt-4'>Welcome back, Tofunmi</h1>
-            <div>
-                <ul className='flex-center gap-5'>
-                    <li className='flex-center rounded-full overflow-hidden'><img src="/avatar.jpg" alt="avatar" className='w-[48px] h-[48px] object-cover'/></li>
-                    {/* <span className="flex w-3 h-3 me-3 bg-blue-600 rounded-full ml-[-20px] mt-[25px]"></span> */}
-                    <li className='w-[48px] h-[48px] flex-center bg-[#E8EAF6] text-[#390053] rounded-full hover:bg-[#390053] hover:text-stone-50 cursor-pointer' ><Bell /></li>
-                </ul>
-            </div>
-        </div>
-        <div className='flex items-center pt-5 flex-col h-[230px]'>
-            <div className='flex justify-between w-[704px]'>
-                <h1 className='text-[40px] font-[600] mb-4 ml-10'>&nbsp;&nbsp;Àjọ begins with trust.  
-                <br/>
-                Start saving with yours’</h1>
-                <div className='flex-center flex-col'>
-                    <img src="/plus.png" alt="plus" className='w-[56px] h-[56px]'/>
-                    <p className='text-[14px] font-[600] text-[#424242] mt-2'>CREATE NEW AJO</p>
+// ----------------- Reusable Card Component -----------------
+
+type CircleCardProps = {
+    name: string;
+    amount: string;
+    members?: string;
+    isPrivate?: boolean;
+    paidCount?: number;
+    totalCount?: number;
+    nextAmount?: string;
+    dueDate?: string;
+    createdByMe?: boolean;
+};
+
+const CircleCard = ({
+    name,
+    amount,
+    members,
+    isPrivate = false,
+    paidCount = 0,
+    totalCount = 0,
+    nextAmount,
+    dueDate,
+    createdByMe = false,
+}: CircleCardProps) => {
+    const percentage = totalCount ? Math.round((paidCount / totalCount) * 100) : 0;
+
+    return (
+        <div className="bg-white rounded-xl p-4 shadow-sm">
+            {isPrivate ? (
+                <Card className="w-[390px] border-none shadow-none">
+                    <CardContent className="p-6">
+                        {/* Header with badges */}
+                        <div className="flex gap-2 mb-4">
+                            <div className="bg-[#ffffff] text-[#000000] border border-[#e5e7eb] px-3 py-1 rounded-full text-sm font-medium cursor-default">
+                                Monthly
+                            </div>
+                            <div className="bg-[#fcdcfb] text-[#390053] hover:bg-[#fcdcfb] px-3 py-1 rounded-full text-sm font-medium cursor-default">Active</div>
+                        </div>
+
+                        {/* Main content */}
+                        <div className="flex justify-between items-start mb-4">
+                            <div className="flex-1">
+                                <h2 className="text-2xl font-semibold text-[#000000] mb-2">{name}</h2>
+                                <p className="text-[#6b7280] text-sm"> {createdByMe ? "You created this" : "Member"} • {totalCount} members</p>
+                            </div>
+
+                            <div className="text-right">
+                                <p className="text-[#6b7280] text-sm mb-1">Next contribution</p>
+                                <p className="text-xl font-semibold text-[#000000] mb-1">{nextAmount}</p>
+                                <p className="text-[#6b7280] text-sm">{dueDate}</p>
+                            </div>
+                        </div>
+
+                        {/* Progress section */}
+                        <div className="space-y-3">
+                            <Progress
+                                value={percentage}
+                                className="h-2 bg-[#e5e7eb]"
+                                style={
+                                    {
+                                        "--progress-background": "#390053",
+                                    } as React.CSSProperties
+                                }
+                            />
+                            <div className="flex justify-between items-center text-sm">
+                                <span className="text-[#6b7280]">{paidCount}/{totalCount} paid</span>
+                                <span className="text-[#6b7280] font-medium">{percentage}</span>
+                            </div>
+                        </div>
+                    </CardContent>
+                </Card>
+
+            ) : (
+                <div className="w-[390px]">
+                    <div className="flex justify-between items-center mb-6">
+                        <h2 className="text-[#390053] font-semibold text-sm">JOIN CIRCLE</h2>
+                        <span className="text-[#b6b6b6] text-sm">Verified User</span>
+                    </div>
+                    <div className="flex items-center gap-4 mb-4">
+                        <div className="w-12 h-12 bg-[#390053] rounded-full flex-shrink-0"></div>
+
+                        <h1 className="text-[#000] text-2xl font-semibold">{name}</h1>
+                    </div>
+                    <div className="flex items-center justify-between mb-8">
+                        <div className="flex items-center gap-4">
+                            <div className="flex flex-col gap-3">
+                                <div className="flex -space-x-2">
+                                    {[1, 2, 3].map((i) => (
+                                        <div key={i} className="w-8 h-8 rounded-full overflow-hidden border-2 border-white">
+                                            <Image src="/placeholder.svg?height=32&width=32" alt={`Profile ${i}`} width={32} height={32} className="object-cover" />
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                        <Button variant="outline" className="rounded-full px-6 py-2 border-[#000] text-[#000] hover:bg-[#eee9ff] flex items-center gap-2">
+                            Join Now <ArrowRight className="w-4 h-4" />
+                        </Button>
+                    </div>
+                    <div className="flex items-center justify-center gap-3">
+                        <div className="bg-[#eee9ff] text-[#000] px-4 py-2 rounded-full text-sm font-medium">{amount}</div>
+                        <div className="bg-[#fde3ff] text-[#000] px-4 py-2 rounded-full text-sm font-medium">{members}</div>
+                    </div>
                 </div>
-            </div>
-            <div className='flex items-center gap-2 px-4 rounded-lg w-[704px] h-[48px] bg-[#FAF9FC] shadow-md'>
-                <span><Search className='w-[24px] h-[24px] text-[#ccc] '/></span>
-                <input className='outline-none w-[100%] bg-transparent' type="text" placeholder='SEARCH FOR CIRCLES...'/>
-            </div>
+            )}
         </div>
-        <div className='bg-[#F6F1FB] h-[354px] py-5 px-10'>
-            <h1 className='font-[600] text-[20px]'>Recommended Circles</h1>
-            <h1 className='font-[300] text-[20px]'>Circles tailored to your preferences</h1>
-        </div>
-        </section>
-    </div>
-  )
-}
+    );
+};
 
-export default dashboard
+// ----------------- Hero Section -----------------
+
+const HeroSection = () => (
+    <div className="flex flex-col items-center py-6">
+        <div className="w-full max-w-2xl flex justify-between items-center px-6">
+            <div>
+                <h1 className="text-4xl font-semibold mb-1">Àjọ begins with trust.</h1>
+                <p className="text-4xl font-semibold">Start saving with yours</p>
+            </div>
+            <button className="flex flex-col items-center">
+                <Image src="/plus.png" width={56} height={56} alt="plus" />
+                <p className="text-sm font-semibold text-[#424242] mt-2">CREATE NEW AJO</p>
+            </button>
+        </div>
+        <div className="mt-4 w-full max-w-[704px]">
+            <div className="flex items-center gap-2 px-4 rounded-lg w-full h-[48px] bg-[#FAF9FC] shadow-md">
+                <Search className="w-5 h-5 text-muted-foreground" />
+                <input type="text" placeholder="SEARCH FOR CIRCLES..." className="outline-none w-full bg-transparent text-sm" />
+            </div>
+        </div>
+    </div>
+);
+
+// ----------------- Recommended & Private Circles -----------------
+
+const Dashboard = () => {
+    const recommended = [
+        { name: "Weekly Contribution", amount: "₦45,000", members: "15/25 Members" },
+        { name: "Emergency Fund Group", amount: "₦45,000", members: "15/25 Members" },
+        { name: "Young Professionals Ajo", amount: "₦45,000", members: "15/25 Members" },
+        { name: "Monthly Business Circle", amount: "₦45,000", members: "15/25 Members" },
+    ];
+
+    const privateCircles = [
+        {
+            name: "Family Support",
+            paidCount: 6,
+            totalCount: 8,
+            nextAmount: "₦50,000",
+            dueDate: "July 15, 2023",
+            isPrivate: true,
+            createdByMe: true,
+            amount: "",
+        },
+        {
+            name: "Business Fund",
+            paidCount: 4,
+            totalCount: 6,
+            nextAmount: "₦30,000",
+            dueDate: "July 20, 2023",
+            isPrivate: true,
+            createdByMe: true,
+            amount: "",
+        },
+    ];
+
+    return (
+        <main className="bg-white">
+            <HeroSection />
+
+            <section className="bg-[#F6F1FB] py-6 px-10">
+                <h2 className="text-lg font-semibold">Recommended Circles</h2>
+                <p className="text-sm text-muted-foreground mb-4">Circles tailored to your preferences</p>
+                <div className="flex gap-4 overflow-x-auto">
+                    {recommended.map((c, idx) => (
+                        <CircleCard key={idx} {...c} />
+                    ))}
+                </div>
+            </section>
+
+            <section className="py-6 px-10 bg-[#FAF9FC]">
+                <h2 className="text-lg font-semibold mb-2">My Private Circles</h2>
+                <div className="flex gap-4 overflow-x-auto">
+                    {privateCircles.map((c, idx) => (
+                        <CircleCard key={idx} {...c} />
+                    ))}
+                </div>
+            </section>
+        </main>
+    );
+};
+
+export default Dashboard;
