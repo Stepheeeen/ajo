@@ -84,6 +84,9 @@ export default function Component() {
                 Sign up now
               </Link>
             </p>
+            <div className="text-black-500 text-lg w-30 h-20 bg-[#ccc] flex justify-center items-center rounded-lg font">
+                <Link href="/dashboard">Dashboard</Link>
+              </div>
           </div>
         </div>
       </div>
