@@ -12,6 +12,8 @@ import {
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import Image from "next/image";
 
 const Sidebar = () => {
   const navItems = [
@@ -42,9 +44,8 @@ const Sidebar = () => {
                       <Button
                         variant="ghost"
                         size="icon"
-                        className={`w-12 h-12 rounded-lg text-[#390053] hover:bg-[#390053] hover:text-stone-50 ${
-                          active ? "bg-[#f0e8f6] text-[#9b5cc0]" : ""
-                        }`}
+                        className={`w-12 h-12 rounded-lg text-[#390053] hover:bg-[#390053] hover:text-stone-50 ${active ? "bg-[#f0e8f6] text-[#9b5cc0]" : ""
+                          }`}
                       >
                         {icon}
                       </Button>
@@ -84,6 +85,21 @@ const Sidebar = () => {
           <Separator className="w-10 bg-muted" />
         </div>
       </aside>
+
+      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t flex justify-around items-center p-3 h-[70px] w-full z-10">
+        <Link href="/dashboard" className="flex flex-col items-center">
+          <House className="w-6 h-6 text-[#390053]" />
+          <span className="text-xs text-[#390053]">Home</span>
+        </Link>
+        <Link href="/dashboard/analytics" className="flex flex-col items-center">
+          <Image src="/plus.png" width={60} height={60} alt="plus" className="-mt-[45px] mb-2"/>
+          <span className="text-xs text-[#390053]">New Circle</span>
+        </Link>
+        <Link href="/dashboard/users" className="flex flex-col items-center">
+          <UsersRound className="w-6 h-6 text-[#390053]" />
+          <span className="text-xs text-[#390053]">My Circle</span>
+        </Link>
+      </div>
     </TooltipProvider>
   );
 };

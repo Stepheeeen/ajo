@@ -6,13 +6,13 @@ import Link from "next/link"
 
 export default function Component() {
   return (
-    <div className="min-h-screen flex max-sm:flex-col">
+    <div className="h-[100vh] flex flex-col md:flex-row">
       {/* Left Side - Hero Section */}
-      <div className="flex-1 relative overflow-hidden" style={{ backgroundColor: "#390053" }}>
+      <div className="md:flex-1 relative overflow-hidden h-2/5 rounded-ee-[20%] md:rounded-ee-none rounded-b-[20%] md:rounded-b-none md:h-full" style={{ backgroundColor: "#390053" }}>
         <div className="absolute inset-0">
-          <img src="/ajo-background.png" alt="People silhouettes" className="w-full h-full object-cover opacity-25" />
+          <img src="/ajo-background.png" alt="People silhouettes" className="w-full h-full md:object-cover opacity-25" />
         </div>
-        <div className="relative z-10 flex flex-col justify-between h-full p-12 max-sm:hidden">
+        <div className="hidden relative z-10 md:flex flex-col justify-between h-full p-12">
           <div className="flex-1 flex flex-col justify-center max-w-lg">
             <h1 className="text-white text-5xl font-bold leading-tight mb-8">
               Join the Trusted Circle.
@@ -37,11 +37,10 @@ export default function Component() {
       </div>
 
       {/* Right Side - Signup Form */}
-      <div className="flex-1 bg-white flex items-center justify-center p-12 max-sm:px-5">
+      <div className="md:flex-1 bg-white flex md:items-center justify-center p-8 md:p-12 max-sm:px-5 h-3/5 md:h-full">
         <div className="w-full max-w-md space-y-6">
           <div className="text-start mb-8 max-sm:text-center max-sm:mb-1">
-            <h2 className="text-3xl font-bold text-gray-900 mb-2 max-sm:hidden">Create Your ÀJÓ Account</h2>
-            <h2 className="max-sm:block hidden font-[600] text-[20px] bg-gradient-to-r from-[#390053] to-[#6A0DAD] bg-clip-text text-transparent">Create Your ÀJÓ Account</h2>
+            <h2 className="text-[20px] md:text-3xl font-bold bg-gradient-to-r from-[#390053] to-[#6A0DAD] bg-clip-text text-transparent md:text-gray-900 mb-2 text-start md:text-center">Create Your ÀJÓ Account</h2>
           </div>
 
           <form className="space-y-6 max-sm:space-y-3">
